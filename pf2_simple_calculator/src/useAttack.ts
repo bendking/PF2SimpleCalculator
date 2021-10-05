@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-const calculateHitRate = (bonus: number, MAP: number, AC: number) => {
+const calculateHitRate = (bonus: number, MAP: number, AC: number): number => {
     return Math.min(1-((AC- bonus - 1 - MAP) / 20), 0.5);
 }
 
-const calculateCritRate = (bonus: number, MAP: number, AC: number) => {
+const calculateCritRate = (bonus: number, MAP: number, AC: number): number => {
     if ((AC - bonus) > 20) {
         return 0;
     }
@@ -26,8 +26,7 @@ export const useAttack = (_bonus: number, _MAP: number, _AC: number) => {
     setBonus,
     setMAP,
     setAC,
-  ];
-
+  ] as const;
 } 
 
 

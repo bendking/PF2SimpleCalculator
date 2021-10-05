@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { evaluate } from "mathjs"
 import { useAttack } from "./useAttack"
 import { useDamage } from "./useDamage"
 
@@ -12,45 +12,42 @@ const useStrike = (
   _attackMAP: number,
   _damageDie: number,
   _damageDieMultiplier: number,
-  _damageModifiers: Array<number>
+  _damageModifier: number
 ) => {
   const [hitRate, critRate, setAttackBonus, setAttackAC, setAttackMAP] = useAttack(_attackBonus, _attackAC, _attackMAP);
-  const [damage, setDamageDie, setDamageDieMultiplier, setDamageModifiers] = useDamage(_damageDie, _damageDieMultiplier, _damageModifiers);
+  const [damage, setDamageDie, setDamageDieMultiplier, setDamageModifier] = useDamage(_damageDie, _damageDieMultiplier, _damageModifier);
 
   const result = calculateResult(hitRate, critRate, damage);
 
   const handleBonusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setAttackBonus(parseInt(e.target.value));
+    setAttackBonus(parseInt(e.currentTarget.value));
   };
 
   const handleMAPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setAttackMAP(parseInt(e.target.value));
+    setAttackMAP(parseInt(e.currentTarget.value));
   };
 
   const handleACChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setAttackAC(parseInt(e.target.value));
+    setAttackAC(parseInt(e.currentTarget.value));
   };
 
   const handleDieChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setDamageDie(parseInt(e.target.value));
+    setDamageDie(parseInt(e.currentTarget.value));
   };
 
   const handleDieMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setDamageDieMultiplier(parseInt(e.target.value));
+    setDamageDieMultiplier(parseInt(e.currentTarget.value));
   };
 
-
-  const handleModifiersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleModifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setDamageModifiers(parseInt(e.target.value));
+    setDamageModifier(evaluate(e.currentTarget.value));
   };
-
-
 
   return {
     result,
@@ -59,6 +56,6 @@ const useStrike = (
     handleMAPChange,
     handleDieChange,
     handleDieMultiplierChange,
-    handleModifiersChange,
+    handleModifierChange,
   };
 };
