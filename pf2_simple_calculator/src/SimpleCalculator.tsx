@@ -29,9 +29,11 @@ export function SimpleCalculator() {
   }, []);
 
   const addStrike = () => {
-    setStrikeCounter((prevCounter) => prevCounter + 1);
-    setStrike(`strike_${strikeCounter}`, 0);
+    setStrike(`strike_${strikeCounter + 1}`, 0);
+		setStrikeCounter((prevCounter) => prevCounter + 1);
   };
+
+	console.log(strikes)
 
   const overallDamage = Object.values(strikes).reduce((a, b) => a + b, 0);
 
