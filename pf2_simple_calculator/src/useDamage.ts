@@ -13,6 +13,9 @@ export const useDamage = (_die: number, _dieMultiplier: number, _modifier: numbe
 
   return [
     damage,
+    die,
+    dieMultiplier,
+    modifier,
     setDie,
     setDieMultiplier,
     setModifier,
