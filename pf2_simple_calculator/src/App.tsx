@@ -8,7 +8,7 @@ import { SimpleCalculator } from "./SimpleCalculator";
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box fontSize="xl">
-      <Grid minH="60vh" p={3}>
+      <Grid p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
         <SimpleCalculator />
       </Grid>

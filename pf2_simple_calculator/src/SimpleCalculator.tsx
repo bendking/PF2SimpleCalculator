@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 
-import { Grid, VStack, HStack, Center } from "@chakra-ui/layout";
+import { SimpleGrid, VStack, HStack, Center } from "@chakra-ui/layout";
 import { Stat, StatLabel, StatNumber, IconButton, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
@@ -30,10 +30,10 @@ export function SimpleCalculator() {
 
   const addStrike = () => {
     setStrike(`strike_${strikeCounter + 1}`, 0);
-		setStrikeCounter((prevCounter) => prevCounter + 1);
+    setStrikeCounter((prevCounter) => prevCounter + 1);
   };
 
-	console.log(strikes)
+  console.log(strikes);
 
   const overallDamage = Object.values(strikes).reduce((a, b) => a + b, 0);
 
@@ -47,16 +47,18 @@ export function SimpleCalculator() {
         <StatLabel>
           <Text fontSize="2vh">Overall Damage</Text>
         </StatLabel>
-        <StatNumber>
-          <Text fontSize="4vh">{overallDamage.toFixed(3)}</Text>
-        </StatNumber>
+        <Center>
+          <StatNumber>
+            <Text fontSize="4vh">{overallDamage.toFixed(3)}</Text>
+          </StatNumber>
+        </Center>
       </Stat>
-      <Grid gap={4} templateRows="repeat(3, 1fr)" templateColumns="repeat(3, 1fr)">
+      <SimpleGrid spacing={4} columns={[1, 1, 3]} rows={[1, 1, 3]}>
         {strikesList}
-				<Center>
-					<IconButton aria-label="Add strike" onClick={addStrike} icon={<AddIcon />} colorScheme="blue" />
-				</Center>
-      </Grid>
+        <Center>
+          <IconButton aria-label="Add strike" onClick={addStrike} icon={<AddIcon />} colorScheme="blue" />
+        </Center>
+      </SimpleGrid>
     </VStack>
   );
 }

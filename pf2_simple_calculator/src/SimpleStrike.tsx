@@ -5,18 +5,22 @@ import {
   HStack,
   Center,
   Heading,
-  Text,
-  Input,
   Box,
   InputGroup,
   InputLeftAddon,
   Badge,
   Divider,
   IconButton,
+  NumberInput,
+  NumberInputField,
+  NumberIncrementStepper,
+  NumberInputStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 
 import { useStrike } from "./useStrike";
+import { StrikeInput } from "./StrikeInput"
 
 type SimpleStrikeProps = {
   strikeName: string;
@@ -58,40 +62,22 @@ export function SimpleStrike({ strikeName, setStrike, removeStrike }: SimpleStri
           justifySelf="flex-end"
         />
         <HStack spacing={3}>
-          <VStack spacing={3} maxW="9em">
+          <VStack spacing={3} maxW="10em">
             <Heading as="h4" size="md">
               Attack
             </Heading>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="Attack Bonus" />
-              <Input type="number" value={bonus} onChange={handleBonusChange} />
-            </InputGroup>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="MAP" />
-              <Input type="number" value={MAP} onChange={handleMAPChange} />
-            </InputGroup>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="AC" />
-              <Input type="number" value={AC} onChange={handleACChange} />
-            </InputGroup>
+            <StrikeInput inputName="Attack Bonus" value={bonus} handleValueChange={handleBonusChange} />
+            <StrikeInput inputName="MAP" value={MAP} handleValueChange={handleMAPChange} />
+            <StrikeInput inputName="AC" value={AC} handleValueChange={handleACChange} />
           </VStack>
           <Divider orientation="vertical" />
-          <VStack spacing={3} maxW="9em">
+          <VStack spacing={3} maxW="10em">
             <Heading as="h4" size="md">
               Damage
             </Heading>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="Die Size" />
-              <Input type="number" value={die} onChange={handleDieChange} />
-            </InputGroup>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="Die Multiplier" />
-              <Input type="number" value={dieMultiplier} onChange={handleDieMultiplierChange} />
-            </InputGroup>
-            <InputGroup size="md">
-              <InputLeftAddon minW="8em" children="Modifiers" />
-              <Input type="number" value={modifier} onChange={handleModifierChange} />
-            </InputGroup>
+            <StrikeInput inputName="Die Size" value={die} handleValueChange={handleDieChange} />
+            <StrikeInput inputName="Die Multiplier" value={dieMultiplier} handleValueChange={handleDieMultiplierChange} />
+            <StrikeInput inputName="Modifiers" value={modifier} handleValueChange={handleModifierChange} />
           </VStack>
         </HStack>
         <Badge borderRadius="full" fontSize="0.8em" p="2" mt="20px" colorScheme="blue">

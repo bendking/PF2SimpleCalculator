@@ -16,6 +16,10 @@ const parseExpression = (str: string): number => {
   return evaluate(str) || 0;
 }
 
+function setParsedValue(valueAsString: string, valueAsNumber: number, setValue: Function) {
+  valueAsString === '' ? setValue(0) : setValue(valueAsNumber);
+}
+
 export const useStrike = (
   _attackBonus: number = 7,
   _attackMAP: number = 0,
@@ -29,35 +33,59 @@ export const useStrike = (
 
   const result = calculateResult(hitRate, critRate, damage);
 
-  const handleBonusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setAttackBonus(parseNumber(e.currentTarget.value));
+  const handleBonusChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setAttackBonus)
   };
 
-  const handleMAPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setAttackMAP(parseNumber(e.currentTarget.value));
+  const handleMAPChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setAttackMAP)
   };
 
-  const handleACChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setAttackAC(parseNumber(e.currentTarget.value));
+  const handleACChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setAttackAC)
   };
 
-  const handleDieChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setDamageDie(parseNumber(e.currentTarget.value));
+  const handleDieChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setDamageDie)
   };
 
-  const handleDieMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setDamageDieMultiplier(parseNumber(e.currentTarget.value));
+  const handleDieMultiplierChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setDamageDieMultiplier)
   };
 
-  const handleModifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setDamageModifier(parseExpression(e.currentTarget.value));
+  const handleModifierChange = (valueAsString: string, valueAsNumber: number) => {
+    setParsedValue(valueAsString, valueAsNumber, setDamageModifier)
   };
+
+  // const handleBonusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setAttackBonus(parseNumber(e.currentTarget.value));
+  // };
+
+  // const handleMAPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setAttackMAP(parseNumber(e.currentTarget.value));
+  // };
+
+  // const handleACChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setAttackAC(parseNumber(e.currentTarget.value));
+  // };
+
+  // const handleDieChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setDamageDie(parseNumber(e.currentTarget.value));
+  // };
+
+  // const handleDieMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setDamageDieMultiplier(parseNumber(e.currentTarget.value));
+  // };
+
+  // const handleModifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setDamageModifier(parseExpression(e.currentTarget.value));
+  // };
 
   return [
     result,
