@@ -43,7 +43,7 @@ export function SimpleCalculator() {
 
   return (
     <>
-      <Box position="fixed" left={0} >
+      <Box position="fixed" left={0}>
         <Stack>
           <ACByLevel />
           <AttackByLevel />
