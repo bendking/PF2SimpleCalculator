@@ -6,16 +6,9 @@ import {
   Center,
   Heading,
   Box,
-  InputGroup,
-  InputLeftAddon,
   Badge,
   Divider,
   IconButton,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberInputStepper,
-  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 

@@ -3,17 +3,11 @@ import { useAttack } from "./useAttack"
 import { useDamage } from "./useDamage"
 
 const calculateResult = (hitRate: number, critRate: number, damage: number) => {
-  console.log('Hit rate:' + hitRate);
-  console.log('Crit rate:' + critRate);
+  console.log('Hit rate: ' + hitRate);
+  console.log('Hit Damage: '+ damage)
+  console.log('Crit rate: ' + critRate);
+  console.log('Crit damage: ' + damage*2)
   return (hitRate * damage) + (critRate * damage * 2);
-}
-
-const parseNumber = (str: string): number => {
-  return parseInt(str) || 0;
-}
-
-const parseExpression = (str: string): number => {
-  return evaluate(str) || 0;
 }
 
 function setParsedValue(valueAsString: string, valueAsNumber: number, setValue: Function) {
@@ -23,7 +17,7 @@ function setParsedValue(valueAsString: string, valueAsNumber: number, setValue: 
 export const useStrike = (
   _attackBonus: number = 7,
   _attackMAP: number = 0,
-  _attackAC: number = 20,
+  _attackAC: number = 16,
   _damageDie: number = 8,
   _damageDieMultiplier: number = 1,
   _damageModifier: number = 4
