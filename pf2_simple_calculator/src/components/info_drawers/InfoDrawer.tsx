@@ -6,7 +6,6 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
@@ -22,7 +21,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 const generateTableRow = (values: Array<number>) => (
   <Tr>
     {values.map((value) => (
-      <Td>{value}</Td>
+      <Td key={value}>{value}</Td>
     ))}
   </Tr>
 );
@@ -41,7 +40,7 @@ export function InfoDrawer({ infoName, tableHeaders, tableRows }: InfoDrawerProp
     <Thead>
       <Tr>
         {tableHeaders.map((header) => (
-          <Th>{header}</Th>
+          <Th key={header}>{header}</Th>
         ))}
       </Tr>
     </Thead>

@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 
-import { SimpleGrid, VStack, HStack, Center, Box, Stack } from "@chakra-ui/layout";
+import { SimpleGrid, VStack, Center, Box, Stack } from "@chakra-ui/layout";
 import { Stat, StatLabel, StatNumber, IconButton, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 import { SimpleStrike } from "./SimpleStrike";
-import { ACByLevel } from "./infoDrawers/ACByLevel";
-import { AttackByLevel } from "./infoDrawers/AttackByLevel";
+import { ACByLevel } from "./info_drawers/ACByLevel";
+import { AttackByLevel } from "./info_drawers/AttackByLevel";
 
 export function SimpleCalculator() {
   const [strikes, setStrikes] = useState<Record<string, number>>({ strike_1: 0 });
@@ -38,7 +38,7 @@ export function SimpleCalculator() {
   const overallDamage = Object.values(strikes).reduce((a, b) => a + b, 0);
 
   const strikesList = Object.keys(strikes).map((strike) => (
-    <SimpleStrike strikeName={strike} setStrike={setStrike} removeStrike={removeStrike} />
+    <SimpleStrike key={strike} strikeName={strike} setStrike={setStrike} removeStrike={removeStrike} />
   ));
 
   return (

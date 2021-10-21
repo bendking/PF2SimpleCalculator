@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 
-import { useStrike } from "./useStrike";
+import { useStrike } from "../hooks/useStrike";
 import { StrikeInput } from "./StrikeInput"
 
 type SimpleStrikeProps = {

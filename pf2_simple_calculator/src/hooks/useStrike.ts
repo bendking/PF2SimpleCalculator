@@ -1,11 +1,10 @@
-import { evaluate } from "mathjs"
 import { useAttack } from "./useAttack"
 import { useDamage } from "./useDamage"
 
 const calculateResult = (hitRate: number, critRate: number, damage: number) => {
-  console.log('Hit rate: ' + hitRate);
+  console.log('Hit rate: ' + hitRate.toFixed(2));
   console.log('Hit Damage: '+ damage)
-  console.log('Crit rate: ' + critRate);
+  console.log('Crit rate: ' + critRate.toFixed(2));
   console.log('Crit damage: ' + damage*2)
   return (hitRate * damage) + (critRate * damage * 2);
 }

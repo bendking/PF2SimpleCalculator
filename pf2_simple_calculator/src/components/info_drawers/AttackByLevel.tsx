@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { InfoDrawer } from '../InfoDrawer'
+import { InfoDrawer } from './InfoDrawer'
 
 const tableName = "Attack By Level"
 const tableHeaders = ['Level', 'Caster', 'Martial', 'Fighter']
