@@ -1,44 +1,117 @@
 import React, { useState, useCallback } from "react";
 
-import { SimpleGrid, VStack, Center, Box, Stack } from "@chakra-ui/layout";
-import { Stat, StatLabel, StatNumber, IconButton, Text } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { VStack, Center, Box, Stack, Text } from "@chakra-ui/layout";
+import { Button, Stat, StatGroup, StatLabel, StatNumber } from "@chakra-ui/react";
 
-import { SimpleStrike } from "./SimpleStrike";
 import { ACByLevel } from "./info_drawers/ACByLevel";
 import { AttackByLevel } from "./info_drawers/AttackByLevel";
+import { SimpleRoutine } from "./SimpleRoutine";
+
+import { renameObjectKey } from "../utils/util_functions";
 
 export function SimpleCalculator() {
-  const [strikes, setStrikes] = useState<Record<string, number>>({ strike_1: 0 });
+  const [routines, setRoutines] = useState<Record<string, Record<string, number>>>({
+    'Routine 1': { strike_1: 0 },
+  });
+  const [routineCounter, setRoutineCounter] = useState(1);
   const [strikeCounter, setStrikeCounter] = useState(1);
 
-  //  create & update strikes
-  const setStrike = useCallback(
-    (strikeName: string, strikeValue: number) => {
-      setStrikes((prev) => ({
-        ...prev,
-        [strikeName]: strikeValue,
-      }));
-    },
-    [setStrikes]
-  );
+  console.log(routines);
+  console.log(`Routine counter: ${routineCounter}`);
+  console.log(`Strike counter: ${strikeCounter}`);
 
-  const removeStrike = useCallback((strikeName: string) => {
-    setStrikes((prevStrikesDamage) => {
-      const { [strikeName]: removed, ...rest } = prevStrikesDamage;
-      return rest;
-    });
-  }, []);
+  const incrementRoutineCounter = () => {
+    setRoutineCounter((prevCounter) => prevCounter + 1);
+  };
 
-  const addStrike = () => {
-    setStrike(`strike_${strikeCounter + 1}`, 0);
+  const incrementStrikeCounter = () => {
     setStrikeCounter((prevCounter) => prevCounter + 1);
   };
 
-  const overallDamage = Object.values(strikes).reduce((a, b) => a + b, 0);
+  // TODO: doesn't need to be memoized
+  const setRoutine = useCallback((routineName: string, routineValue: Record<string, number>) => {
+    setRoutines((prevRoutines) => ({
+      ...prevRoutines,
+      [routineName]: routineValue,
+    }));
+  }, []);
 
-  const strikesList = Object.keys(strikes).map((strike) => (
-    <SimpleStrike key={strike} strikeName={strike} setStrike={setStrike} removeStrike={removeStrike} />
+  const addRoutine = () => {
+    setRoutine(`Routine ${routineCounter + 1}`, { [`strike_${strikeCounter}`]: 0 });
+    incrementRoutineCounter();
+  };
+
+  const removeRoutine = useCallback((routineName: string) => {
+    setRoutines((prevRoutines) => {
+      const { [routineName]: removed, ...newRoutines } = prevRoutines;
+      return newRoutines;
+    });
+  }, []);
+
+  const renameRoutine = useCallback((oldRoutineName: string, newRoutineName: string) => {
+    setRoutines((prevRoutines) => renameObjectKey(prevRoutines, oldRoutineName, newRoutineName));
+  }, []);
+
+  const setStrike = useCallback((routineName: string, strikeName: string, strikeValue: number = 0) => {
+    console.log("Entered setStrike");
+    setRoutines((prevRoutines) => ({
+      ...prevRoutines,
+      [routineName]: {
+        ...prevRoutines[routineName],
+        [strikeName]: strikeValue,
+      },
+    }));
+  }, []);
+
+  const addStrike = useCallback(
+    (routineName: string) => {
+      setStrike(routineName, `strike_${strikeCounter + 1}`);
+      incrementStrikeCounter();
+    },
+    [setStrike, strikeCounter]
+  );
+
+  const removeStrike = useCallback((routineName: string, strikeName: string) => {
+    setRoutines((prevRoutines) => {
+      const { [routineName]: routine } = prevRoutines;
+      const { [strikeName]: removed, ...rest } = routine;
+
+      const newRoutines = {
+        ...prevRoutines,
+        [routineName]: rest,
+      };
+
+      return newRoutines;
+    });
+  }, []);
+
+  const routinesDamage = Object.entries(routines).map(([routineName, strikes]) => [
+    routineName,
+    Object.values(strikes).reduce((a, b) => a + b, 0),
+  ]);
+
+  const routinesDamageList = routinesDamage.map(([routineName, damage], i) => (
+    <Stat padding="15px">
+      <StatLabel size="sm">
+        <Text fontSize="3vh" whiteSpace="nowrap">{routineName || `Routine ${i+1}`}</Text>
+      </StatLabel>
+      <StatNumber>
+        <Text fontSize="3vh">{damage.toFixed(2)}</Text>
+      </StatNumber>
+    </Stat>
+  ));
+
+  const routineList = Object.entries(routines).map(([routineName, strikes]) => (
+    <SimpleRoutine
+      key={routineName}
+      routineName={routineName}
+      removeRoutine={removeRoutine}
+      renameRoutine={renameRoutine}
+      strikes={strikes}
+      setStrike={setStrike}
+      addStrike={addStrike}
+      removeStrike={removeStrike}
+    />
   ));
 
   return (
@@ -49,23 +122,16 @@ export function SimpleCalculator() {
           <AttackByLevel />
         </Stack>
       </Box>
-      <VStack spacing={30}>
-        <Stat>
-          <StatLabel>
-            <Text fontSize="2vh">Overall Damage</Text>
-          </StatLabel>
-          <Center>
-            <StatNumber>
-              <Text fontSize="4vh">{overallDamage.toFixed(3)}</Text>
-            </StatNumber>
-          </Center>
-        </Stat>
-        <SimpleGrid spacing={4} columns={[1, 1, 3]} rows={[1, 1, 3]}>
-          {strikesList}
-          <Center>
-            <IconButton aria-label="Add strike" onClick={addStrike} icon={<AddIcon />} colorScheme="blue" />
-          </Center>
-        </SimpleGrid>
+
+      <Center>
+        <StatGroup>{routinesDamageList}</StatGroup>
+      </Center>
+
+      <VStack spacing={5} mt="4vh">
+        {routineList}
+        <Button onClick={addRoutine} colorScheme="blue">
+          Add Routine
+        </Button>
       </VStack>
     </>
   );

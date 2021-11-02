@@ -1,0 +1,4 @@
+1. Add local saving mechanism for routines.
+    1.1. Add save button which saves a routine locally.
+    1.2. Add a 'saved routines' component which lets you load saved routines from local storage.
+2. Add additional damage columns to each strike.

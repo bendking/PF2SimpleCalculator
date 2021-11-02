@@ -2,10 +2,10 @@ import { useAttack } from "./useAttack"
 import { useDamage } from "./useDamage"
 
 const calculateResult = (hitRate: number, critRate: number, damage: number) => {
-  console.log('Hit rate: ' + hitRate.toFixed(2));
-  console.log('Hit Damage: '+ damage)
-  console.log('Crit rate: ' + critRate.toFixed(2));
-  console.log('Crit damage: ' + damage*2)
+  // console.log('Hit rate: ' + hitRate.toFixed(2));
+  // console.log('Hit Damage: '+ damage)
+  // console.log('Crit rate: ' + critRate.toFixed(2));
+  // console.log('Crit damage: ' + damage*2)
   return (hitRate * damage) + (critRate * damage * 2);
 }
 
@@ -49,36 +49,6 @@ export const useStrike = (
   const handleModifierChange = (valueAsString: string, valueAsNumber: number) => {
     setParsedValue(valueAsString, valueAsNumber, setDamageModifier)
   };
-
-  // const handleBonusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setAttackBonus(parseNumber(e.currentTarget.value));
-  // };
-
-  // const handleMAPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setAttackMAP(parseNumber(e.currentTarget.value));
-  // };
-
-  // const handleACChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setAttackAC(parseNumber(e.currentTarget.value));
-  // };
-
-  // const handleDieChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setDamageDie(parseNumber(e.currentTarget.value));
-  // };
-
-  // const handleDieMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setDamageDieMultiplier(parseNumber(e.currentTarget.value));
-  // };
-
-  // const handleModifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setDamageModifier(parseExpression(e.currentTarget.value));
-  // };
 
   return [
     result,

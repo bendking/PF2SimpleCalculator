@@ -16,12 +16,13 @@ import { useStrike } from "../hooks/useStrike";
 import { StrikeInput } from "./StrikeInput"
 
 type SimpleStrikeProps = {
+  routineName: string;
   strikeName: string;
   setStrike: Function;
   removeStrike: Function;
 };
 
-export function SimpleStrike({ strikeName, setStrike, removeStrike }: SimpleStrikeProps) {
+export function SimpleStrike({ routineName, strikeName, setStrike, removeStrike }: SimpleStrikeProps) {
   const [
     result,
     bonus,
@@ -40,14 +41,14 @@ export function SimpleStrike({ strikeName, setStrike, removeStrike }: SimpleStri
 
   useEffect(() => {
     // Update parent component of current average damage
-    setStrike(strikeName, result);
-  }, [setStrike, strikeName, result]);
+    setStrike(routineName, strikeName, result);
+  }, [setStrike, routineName, strikeName, result]);
 
   return (
     <Box p="6" minW="md" maxW="xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Grid>
         <IconButton
-          onClick={() => removeStrike(strikeName)}
+          onClick={() => removeStrike(routineName, strikeName)}
           icon={<CloseIcon />}
           aria-label="Remove strike"
           size="xs"
