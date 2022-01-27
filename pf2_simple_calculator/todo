@@ -1,3 +1,6 @@
+0. Routines
+    0.1. Give default name to routines with empty input boxes.
+    0.2. Solve clashes between routines with the same name (rename to 'X (1)' or something).
 1. Add local saving mechanism for routines.
     1.1. Add save button which saves a routine locally.
     1.2. Add a 'saved routines' component which lets you load saved routines from local storage.
